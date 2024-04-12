@@ -16,13 +16,14 @@ def asciiConvert(image_path, output_type, output_path, scale):
             # Define ASCII characters based on intensity
             ascii_chars = '@%#*+=-:. '
 
-            # Convert pixels to ASCII art
-            ascii_art = ''
-            for pixel_value in img.getdata():
-                ascii_art += ascii_chars[pixel_value // 25]
+        # Convert pixels to ASCII art
+        ascii_art = ''
+        for pixel_value in img.getdata():
+            index = min(pixel_value // 25, len(ascii_chars) - 1)
+            ascii_art += ascii_chars[index]
 
-            # Split ASCII art into lines
-            lines = [ascii_art[i:i+img.width] for i in range(0, len(ascii_art), img.width)]
+        # Split ASCII art into lines
+        lines = [ascii_art[i:i+img.width] for i in range(0, len(ascii_art), img.width)]
 
         # Save ASCII art to file
         with open(output_path, 'w') as output_file:
@@ -35,4 +36,4 @@ def asciiConvert(image_path, output_type, output_path, scale):
         print("Error:", e)
 
 if __name__ == '__main__':
-    asciiConvert("mona_lisa.jpg", "jpg", "mona_lisa.txt", "3")
+    asciiConvert("mona_lisa.jpg", "jpg", "mona_lisa.txt", "2")
